@@ -115,6 +115,16 @@
   const income = parseInt(document.getElementById("income").value);
   let result = 0;
 
+  if(isNaN(income)){
+    document.getElementById("amount").innerText = "";
+    document.getElementById("basicDeduction").innerText = "";
+    document.getElementById("kubun").innerText = "";
+
+    for(let i =1;<=9;i++{
+      document.getElementById("chk" + i).innerText = "☐";
+    }
+    return;
+  }
   // 令和8年分 給与所得（控除後の所得）速算表
   if (income <= 740999) {
     result = 0;
