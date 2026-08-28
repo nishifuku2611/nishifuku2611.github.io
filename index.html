@@ -13,7 +13,21 @@
       height: 50px;
       font-size: 24px;
 
-    }
+      /* スマホで見やすい枠線 */
+ 　　 border: 3px solid #333;
+  　　border-radius: 8px;
+  　　padding: 5px 10px;
+  　　box-sizing: border-box;
+　　}
+
+    /* ボタンを大きくする */
+　　.big-button{
+ 　　 width: 200px;
+ 　　　 height: 60px;
+ 　　 font-size: 22px;
+ 　　 padding: 10px;
+  　　border-radius: 10px;
+　}
   </style>
 </head>
 <body>
@@ -22,8 +36,8 @@
   <label>年収（円）:</label>
   <input type="number" id="income"  class="big-input"/>
 
-  <button onclick="calculate()">計算する</button>
-  <button onclick="clearInput()">クリア</button>
+  <button class="big-button" onclick="calculate()">計算する</button>
+  <button class="big-button" onclick="clearInput()">クリア</button>
 
   <div id="result">
    所得金額は<span id="amount"></span>円です。
