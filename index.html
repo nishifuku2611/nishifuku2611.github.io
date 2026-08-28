@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>年末調整の計算用サイト</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    label, input, button { margin: 10px 0; display: block; }
+    #result { margin-top: 20px; font-weight: bold; }
+
+    .big-input{
+      width: 300px;
+      height: 50px;
+      font-size: 24px;
+
+    }
+  </style>
+</head>
+<body>
+  <h1>年末調整の計算用サイト</h1>
+
+  <label>年収（円）:</label>
+  <input type="number" id="income"  class="big-input"/>
+
+  <button onclick="calculate()">計算する</button>
+  <button onclick="clearInput()">クリア</button>
+
+  <div id="result">
+   所得金額は<span id="amount"></span>円です。
+   基礎控除額は <span id="basicDeduction"></span> 円です。 
+   区分は <span id="kubun"></span> です。
+ <h2>基礎控除の判定</h2>
+ <table border="1" cellpadding="11">
+  <tr>
+    <th>該当</th>
+    <th>合計所得金額</th>
+    <th>区分</th>
+    <th>基礎控除額</th>
+  </tr>
+  <tr>
+    <td id="chk1">☐</td>
+    <td>489万円以下</td>
+    <td>A</td>
+    <td>104万円</td>
+    
+  </tr>
+  <tr>
+    <td id="chk2">☐</td>
+    <td>489万円超〜655万円以下</td>
+    <td>A</td>
+    <td>67万円</td>
+    
+  </tr>
+  <tr>
+    <td id="chk3">☐</td>
+    <td>655万円超〜900万円以下</td>
+    <td>A</td>
+    <td>62万円</td>
+  </tr>
+  <tr>
+    <td id="chk4">☐</td>
+    <td>900万円超〜950万円以下</td>
+    <td>B</td>
+    <td>62万円</td>
+  </tr>
+  <tr>
+    <td id="chk5">☐</td>
+    <td>950万円超〜1000万円以下</td>
+    <td>C</td>
+    <td>62万円</td>
+  </tr>
+  <tr>
+    <td id="chk6">☐</td>
+    <td>1,000万円超〜2,350万円以下</td>
+    <td></td>
+    <td>62万円</td>
+  </tr>
+  <tr>
+    <td id="chk7">☐</td>
+    <td>2,350万円超〜2,400万円以下</td>
+    <td>  </td>
+    <td>48万円</td>
+  </tr>
+  <tr>
+    <td id="chk8">☐</td>
+    <td>2,400万円超〜2,450万円以下</td>
+    <td>  </td>
+    <td>32万円</td>
+  </tr>
+  <tr>
+    <td id="chk9">☐</td>
+    <td>2,450万円超〜2,500万円以下</td>
+    <td>  </td>
+    <td>16万円</td>
+  </tr>
+ </table>
+</div>
+
+  <script>
+   function calculate() {
+  const income = parseInt(document.getElementById("income").value);
+  let result = 0;
+
+  // 令和8年分 給与所得（控除後の所得）速算表
+  if (income <= 740999) {
+    result = 0;
+  } else if (income <= 2190999) {
+    result = income - 740000;
+  } else if (income <= 2192999) {
+    result = 1451000;
+  } else if (income <= 2195999) {
+    result = 1453000;
+  } else if (income <= 2199999) {
+    result = 1456000;
+  } else if (income <= 3599999) {
+    const base = Math.floor(income / 4 / 1000) * 1000;
+    result = base * 2.8 - 80000;
+  } else if (income <= 6599999) {
+    const base = Math.floor(income / 4 / 1000) * 1000;
+    result = base * 3.2 - 440000;
+  } else if (income <= 8499999) {
+    result = income * 0.9 - 1100000;
+  } else {
+    result = income - 1950000;
+  }
+
+  // 結果表示
+  document.getElementById("amount").innerText = result.toLocaleString();
+
+  // -------------------------
+  // 基礎控除の判定ロジック
+  // -------------------------
+  let basicDeduction = 0;
+  let kubun = "";
+
+  // まずチェック欄を全てリセット
+  for (let i = 1; i <= 9; i++) {
+    document.getElementById("chk" + i).innerText = "☐";
+  }
+
+  if (result <= 4890000) {
+    basicDeduction = 1040000;
+    kubun = "A";
+    document.getElementById("chk1").innerText = "☑";
+  } else if (result <= 6550000) {
+    basicDeduction = 670000;
+    kubun = "A";
+    document.getElementById("chk2").innerText = "☑";
+  } else if (result <= 9000000) {
+    basicDeduction = 620000;
+    kubun = "A";
+    document.getElementById("chk3").innerText = "☑";
+  } else if (result <= 9500000) {
+    basicDeduction = 620000;
+    kubun = "B";
+    document.getElementById("chk4").innerText = "☑";
+  } else if (result <= 10000000) {
+    basicDeduction = 620000;
+    kubun = "C";
+    document.getElementById("chk5").innerText = "☑";
+  } else if (result <= 23500000) {
+    basicDeduction = 620000;
+    kubun = "";
+    document.getElementById("chk6").innerText = "☑";
+  } else if (result <= 24000000) {
+    basicDeduction = 480000;
+    kubun = "";
+    document.getElementById("chk7").innerText = "☑";
+  } else if (result <= 24500000) {
+    basicDeduction = 320000;
+    kubun = "";
+    document.getElementById("chk8").innerText = "☑";
+  } else {
+    basicDeduction = 160000;
+    kubun = "";
+    document.getElementById("chk9").innerText = "☑";
+  }
+
+  document.getElementById("basicDeduction").innerText = basicDeduction.toLocaleString();
+  document.getElementById("kubun").innerText = kubun;
+  } 
+
+ function clearInput() {
+  document.getElementById("income").value = "";
+  document.getElementById("amount").innerText = "";
+  document.getElementById("basicDeduction").innerText = "";
+  document.getElementById("kubun").innerText = "☐"
+
+  // チェック欄リセット
+  for (let i = 1; i <= 9; i++) {
+    document.getElementById("chk" + i).innerText = "☐";
+  }
+}
+  </script>
+</body>
+</html>
