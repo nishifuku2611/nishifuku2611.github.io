@@ -11,7 +11,7 @@
     .big-input{
       width: 300px;
       height: 70px;
-      font-size: 24px;
+      font-size: 30px;
 
       /* スマホで見やすい枠線 */
       border: 3px solid #333;
@@ -68,10 +68,11 @@
   <button class="big-button" onclick="clearInput()">クリア</button>
 
   <div id="result">
-   所得金額は<span id="amount"></span>円です。
+   所得金額は <span id="amount"></span>円です。
   <br><br>  
    基礎控除額は <span id="basicDeduction"></span> 円です。 
    区分は <span id="kubun"></span> です。
+  <br><br> 
  <h2>基礎控除の判定</h2>
  <table border="1" cellpadding="11">
   <tr>
@@ -141,7 +142,7 @@
 
   <script>
    function calculate() {
-  const income = parseInt(document.getElementById("income").value);
+  const income = parseInt(document.getElementById("income").value.replace(/,/g,""));
   let result = 0;
 
   if(isNaN(income)){
