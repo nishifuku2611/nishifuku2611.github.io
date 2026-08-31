@@ -28,6 +28,17 @@
      padding: 10px;
      border-radius: 10px;
    }
+
+    /* ★ スマホで表を画面いっぱいに広げる */
+    table {
+      width: 100%;
+      max-width: 100%;
+      border-collapse: collapse;
+    }
+
+    table th, table td {
+      font-size: 20px;
+    }
   </style>
 </head>
 <body>
@@ -41,6 +52,7 @@
 
   <div id="result">
    所得金額は<span id="amount"></span>円です。
+  <br><br>  /* これで、一段落ちる */
    基礎控除額は <span id="basicDeduction"></span> 円です。 
    区分は <span id="kubun"></span> です。
  <h2>基礎控除の判定</h2>
