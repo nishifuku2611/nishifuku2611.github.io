@@ -246,18 +246,27 @@
   }
 }
 
-  document.getElementById("income").addEventListener("input", function(e) {
-    let v = e.target.value.replace(/,/g, "");
-    if (!/^\d*$/.test(v)) return; 
-      e.target.value = v;
-    });
-  const incomeInput = document.getElementById("income");
-  incomeInput.addEventListener("blur", function(e) {
-    let v = e.target.value.replace(/,/g, "");
-    if (v !== "" && !isNaN(v)) {
-      e.target.value = Number(v).toLocaleString();
-    }
-  });
+  /* ★ 入力中もコンマを維持する高度版（カーソル位置も維持） */
+ const incomeInput = document.getElementById("income");
+
+ incomeInput.addEventListener("input", function(e) {
+   const input = e.target;
+
+   const selectionStart = input.selectionStart;
+
+   let raw = input.value.replace(/,/g, "");
+   raw = raw.replace(/\D/g, "");
+   if (raw === "") {
+       input.value = "";
+       return;
+      }
+
+   const formatted = Number(raw).toLocaleString();
+   input.value = formatted;
+
+   const diff = formatted.length - raw.length;
+   input.setSelectionRange(selectionStart + diff, selectionStart + diff);
+ });
   </script>
 </body>
 </html>
