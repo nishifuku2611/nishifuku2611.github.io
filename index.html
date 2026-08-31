@@ -10,7 +10,7 @@
 
     .big-input{
       width: 300px;
-      height: 50px;
+      height: 70px;
       font-size: 24px;
 
       /* スマホで見やすい枠線 */
@@ -244,6 +244,13 @@
     document.getElementById("chk" + i).innerText = "☐";
   }
 }
+
+  document.getElementById("income").addEventListener("input", function(e) {
+    let v = e.target.value.replace(/,/g, "");
+    if (!isNaN(v) && v !== "") {
+      e.target.value = Number(v).toLocaleString();
+    }
+  });
   </script>
 </body>
 </html>
