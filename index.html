@@ -44,17 +44,17 @@
     #amount {
       font-size: 36px;
       font-weight: bold;
-      color: #000;
+      color: #0000ff;
     }
-    #basicDeductin {
+    #basicDeduction {
       font-size: 36px;
       font-weight: bold;
-      color: #000;
+      color: #0000ff;
     }
     #kubun {
       font-size: 36px;
       font-weight: bold;
-      color: #000;
+      color: #0000ff;
     }
   </style>
 </head>
@@ -247,7 +247,12 @@
 
   document.getElementById("income").addEventListener("input", function(e) {
     let v = e.target.value.replace(/,/g, "");
-    if (!isNaN(v) && v !== "") {
+    if (!/^\d*$/.test(v)) return; 
+      e.target.value = v;
+    });
+  incomeInput.addEventListener("blur", function(e) {
+    let v = e.target.value.replace(/,/g, "");
+    if (v !== "" && !isNaN(v)) {
       e.target.value = Number(v).toLocaleString();
     }
   });
