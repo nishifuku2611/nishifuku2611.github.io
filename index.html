@@ -251,6 +251,7 @@
     if (!/^\d*$/.test(v)) return; 
       e.target.value = v;
     });
+  const incomeInput = document.getElementById("income");
   incomeInput.addEventListener("blur", function(e) {
     let v = e.target.value.replace(/,/g, "");
     if (v !== "" && !isNaN(v)) {
