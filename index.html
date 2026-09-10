@@ -70,9 +70,9 @@
   <div id="result">
    所得金額は <span id="amount"></span>円です。
   <br><br>  
-   基礎控除額は <span id="basicDeduction"></span> 円です。 
-   区分は <span id="kubun"></span> です。
-  <br><br> 
+  　区分は <span id="kubun"></span> です。
+    基礎控除額は <span id="basicDeduction"></span> 円です。 
+    <br><br> 
  <h2>基礎控除の判定</h2>
  <table border="1" cellpadding="11">
   <tr>
@@ -230,7 +230,7 @@
     document.getElementById("chk9").innerText = "☑";
   }
 
-  document.getElementById("basicDeduction").innerText = basicDeduction.toLocaleString();
+  document.getElementById("basicDeduction").innerText = (basicDeduction/10000)+"万”;
   document.getElementById("kubun").innerText = kubun;
   } 
 
